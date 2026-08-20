@@ -1,0 +1,72 @@
+from flask import Flask, jsonify, request
+from products_dao import get_all_products, insert_new_product, delete_product, update_product
+
+app = Flask(__name__)
+
+@app.route('/products', methods=['GET'])
+def get_products():
+    connection = get_sql_connection()
+    products = get_all_products(connection)
+    connection.close()
+    return jsonify(products)
+
+@app.route('/products', methods=['POST'])
+def create_product():
+    connection = get_sql_connection()
+    product_id = insert_new_product(connection, request.get_json())
+    connection.close()
+    return jsonify({"product_id": product_id})
+
+@app.route('/products/<int:product_id>', methods=['DELETE'])
+def delete_product_endpoint(product_id):
+    connection = get_sql_connection()
+    result = delete_product(connection, product_id)
+    connection.close()
+    return jsonify({"deleted": result})
+
+@app.route('/products/<int:product_id>', methods=['PUT'])
+def update_product_endpoint(product_id):
+    connection = get_sql_connection()
+    result = update_product(connection, product_id, request.get_json())
+    connection.close()
+    return jsonify({"updated": result})
+
+if __name__ == "__main__":
+    print("Starting the Flask server...")
+    app.run(port=5000, debug=True)
+
+
+
+
+
+
+
+
+
+
+ def delete_product(connection, product_id):
+
+    cursor = connection.cursor()
+
+    query = """
+    DELETE FROM products
+    WHERE product_id = %s;
+    """
+ def delete_product(connection, product_id):
+
+    cursor = connection.cursor()
+
+    query = """
+    DELETE FROM products
+    WHERE product_id = %s;
+    """
+
+    cursor.execute(query, (product_id,))
+
+    connection.commit()
+
+    deleted = cursor.rowcount
+
+    cursor.close()
+
+    return deleted  

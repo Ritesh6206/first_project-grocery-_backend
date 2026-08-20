@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manage — Products</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+
+    <style>
+
+        :root {
+            --kraft: #E8DCC8;
+            --kraft-dark: #D6C3A0;
+            --ink: #2B2620;
+            --forest: #1F5940;
+            --forest-dark: #153D2C;
+            --tomato: #C1440E;
+            --tomato-dark: #9A360A;
+            --cream: #FBF7EC;
+            --line: #C9B892;
+        }
+
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+            margin: 0;
+            background: var(--kraft);
+            color: var(--ink);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+        }
+
+
+        ::selection {
+            background: #D4A017;
+            color: var(--ink);
+        }
+
+
+        /* ============================
+           BANNER
+        ============================ */
+
+        .banner {
+            background: var(--forest);
+            color: var(--cream);
+            padding: 26px 24px 22px;
+            border-bottom: 6px solid var(--forest-dark);
+            position: relative;
+        }
+
+
+        .banner::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -6px;
+            height: 6px;
+
+            background:
+                repeating-linear-gradient(
+                    90deg,
+                    var(--tomato) 0 26px,
+                    var(--cream) 26px 52px
+                );
+        }
+
+
+        .banner h1 {
+            font-family: 'Fraunces', serif;
+            font-weight: 700;
+            font-size: 30px;
+            margin: 0;
+        }
+
+
+        .banner p {
+            margin: 6px 0 0;
+            font-size: 13px;
+            color: #CFE3D8;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+
+        /* ============================
+           MAIN WRAPPER
+        ============================ */
+
+        .wrap {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 28px 20px 60px;
+        }
+
+
+        /* ============================
+           CARD
+        ============================ */
+
+        .card {
+            background: var(--cream);
+            border: 1px solid var(--line);
+            border-radius: 4px;
+            padding: 22px 24px;
+            position: relative;
+        }
+
+
+        .stamp {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 1.5px;
+
+            color: var(--tomato);
+
+            border: 1.5px dashed var(--tomato);
+
+            padding: 3px 8px;
+
+            border-radius: 3px;
+
+            transform: rotate(4deg);
+
+            opacity: 0.85;
+        }
+
+
+        .card h2 {
+            font-family: 'Fraunces', serif;
+            font-weight: 600;
+            font-size: 20px;
+
+            margin: 0 0 16px;
+
+            padding-bottom: 10px;
+
+            border-bottom: 2px solid var(--ink);
+        }
+
+
+        /* ============================
+           FORM
+        ============================ */
+
+        label {
+            display: block;
+
+            font-size: 11px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.6px;
+
+            color: var(--forest-dark);
+
+            font-weight: 600;
+
+            margin: 14px 0 4px;
+        }
+
+
+        label:first-of-type {
+            margin-top: 0;
+        }
+
+
+        .row2 {
+            display: grid;
+
+            grid-template-columns: 2fr 1fr;
+
+            gap: 12px;
+        }
+
+
+        input,
+        select {
+            width: 100%;
+
+            font-family: 'Inter', sans-serif;
+
+            font-size: 14px;
+
+            padding: 10px 11px;
+
+            border: 1px solid var(--line);
+
+            border-radius: 3px;
+
+            background: #fff;
+
+            color: var(--ink);
+        }
+
+
+        input:focus,
+        select:focus {
+            outline: 2px solid var(--forest);
+
+            outline-offset: 1px;
+
+            border-color: var(--forest);
+        }
+
+
+        /* ============================
+           BUTTON
+        ============================ */
+
+        button {
+            font-family: 'Inter', sans-serif;
+
+            font-weight: 600;
+
+            font-size: 13px;
+
+            cursor: pointer;
+
+            border: none;
+
+            border-radius: 3px;
+        }
+
+
+        .btn-primary {
+            background: var(--tomato);
+
+            color: #fff;
+
+            width: 100%;
+
+            padding: 12px 16px;
+
+            margin-top: 18px;
+
+            letter-spacing: 0.3px;
+        }
+
+
+        .btn-primary:hover {
+            background: var(--tomato-dark);
+        }
+
+
+        /* ============================
+           DIVIDER
+        ============================ */
+
+        .divider {
+            margin: 26px 0 18px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        .divider span {
+            font-family: 'Fraunces', serif;
+
+            font-weight: 600;
+
+            font-size: 19px;
+        }
+
+
+        .divider::after {
+            content: "";
+
+            flex: 1;
+
+            border-bottom: 2px solid var(--ink);
+        }
+
+
+        /* ============================
+           COUNT
+        ============================ */
+
+        .count {
+            font-family: 'IBM Plex Mono', monospace;
+
+            font-size: 12px;
+
+            color: var(--forest-dark);
+
+            background: var(--kraft-dark);
+
+            border-radius: 12px;
+
+            padding: 3px 10px;
+        }
+
+
+        /* ============================
+           PRODUCT GRID
+        ============================ */
+
+        .grid {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 12px;
+        }
+
+
+        @media (max-width: 520px) {
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        /* ============================
+           PRODUCT CARD
+        ============================ */
+
+        .product {
+            background: var(--cream);
+
+            border: 1px solid var(--line);
+
+            border-radius: 4px;
+
+            padding: 14px 16px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+            gap: 10px;
+        }
+
+
+        .p-name {
+            font-weight: 600;
+
+            font-size: 14px;
+        }
+
+
+        .p-unit {
+            font-size: 11px;
+
+            color: #8a8471;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.4px;
+
+            margin-top: 3px;
+        }
+
+
+        .p-price {
+            font-family: 'IBM Plex Mono', monospace;
+
+            font-size: 16px;
+
+            font-weight: 500;
+
+            color: var(--tomato-dark);
+
+            white-space: nowrap;
+        }
+
+
+        .p-del {
+            background: none;
+
+            color: #8a8471;
+
+            font-size: 16px;
+
+            padding: 0 2px;
+
+            line-height: 1;
+        }
+
+
+        .p-del:hover {
+            color: var(--tomato-dark);
+        }
+
+
+        .p-row {
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: flex-end;
+
+            gap: 8px;
+        }
+
+
+        /* ============================
+           EMPTY MESSAGE
+        ============================ */
+
+        .empty {
+            grid-column: 1 / -1;
+
+            text-align: center;
+
+            padding: 40px 20px;
+
+            color: #8a8471;
+        }
+
+
+        .empty .big {
+            font-family: 'Fraunces', serif;
+
+            font-size: 18px;
+
+            color: var(--ink);
+
+            margin-bottom: 5px;
+        }
+
+
+        /* ============================
+           TOAST
+        ============================ */
+
+        .toast {
+            position: fixed;
+
+            bottom: 20px;
+
+            left: 50%;
+
+            transform:
+                translateX(-50%)
+                translateY(20px);
+
+            background: var(--ink);
+
+            color: var(--cream);
+
+            padding: 10px 18px;
+
+            border-radius: 4px;
+
+            font-size: 13px;
+
+            opacity: 0;
+
+            transition:
+                opacity .25s,
+                transform .25s;
+
+            pointer-events: none;
+
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+
+        .toast.show {
+            opacity: 1;
+
+            transform:
+                translateX(-50%)
+                translateY(0);
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ============================
+         HEADER
+    ============================ -->
+
+    <div class="banner">
+
+        <h1>Basket Ledger</h1>
+
+        <p>product catalog</p>
+
+    </div>
+
+
+    <!-- ============================
+         MAIN CONTENT
+    ============================ -->
+
+    <div class="wrap">
+
+
+        <!-- ============================
+             ADD PRODUCT FORM
+        ============================ -->
+
+        <div class="card">
+
+            <span class="stamp">
+                new
+            </span>
+
+
+            <h2>
+                Add product
+            </h2>
+
+
+            <!-- Product Name -->
+
+            <label for="p-name">
+                Product name
+            </label>
+
+            <input
+                id="p-name"
+                type="text"
+                placeholder="Tomatoes"
+            >
+
+
+            <!-- Unit + Price -->
+
+            <div class="row2">
+
+
+                <div>
+
+                    <label for="p-unit">
+                        Unit
+                    </label>
+
+
+                    <select id="p-unit">
+
+                        <option value="kg">
+                            kg
+                        </option>
+
+                        <option value="g">
+                            g
+                        </option>
+
+                        <option value="pc">
+                            pc
+                        </option>
+
+                        <option value="L">
+                            L
+                        </option>
+
+                        <option value="ml">
+                            ml
+                        </option>
+
+                        <option value="pack">
+                            pack
+                        </option>
+
+                        <option value="dozen">
+                            dozen
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div>
+
+                    <label for="p-price">
+                        Price (₹)
+                    </label>
+
+
+                    <input
+                        id="p-price"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        placeholder="45.00"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- Add Button -->
+
+            <button
+                class="btn-primary"
+                id="add-btn"
+                type="button"
+            >
+                Add product
+            </button>
+
+        </div>
+
+
+        <!-- ============================
+             CATALOG TITLE
+        ============================ -->
+
+        <div class="divider">
+
+            <span>
+                Catalog
+            </span>
+
+
+            <span
+                class="count"
+                id="count"
+            >
+                0 items
+            </span>
+
+        </div>
+
+
+        <!-- ============================
+             PRODUCTS
+             
+             JavaScript will insert
+             products here.
+        ============================ -->
+
+        <div
+            class="grid"
+            id="product-grid"
+        ></div>
+
+
+    </div>
+
+
+    <!-- ============================
+         TOAST
+    ============================ -->
+
+    <div
+        class="toast"
+        id="toast"
+    ></div>
+
+
+    <!-- ============================
+         FLASK STATIC JAVASCRIPT
+    ============================ -->
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+
+</body>
+
+</html>
